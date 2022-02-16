@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Cloning Git') {
             steps {
-                sh 'git clone https://github.com/sravan-github/toolkit.git'
+                sh 'git clone https://github.com/sravan-gc-github/toolkit.git'
                 sh 'pwd'
                 sh 'cd toolkit'
                 sh 'ls -ltr'
