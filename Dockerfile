@@ -1,26 +1,16 @@
-FROM ubuntu:bionic
+FROM ubuntu:18.04
+RUN apt-get update \
+     && apt-get install -y openjdk-11-jdk \
+        curl \
+        git \
+        maven \
+        net-tools \
+        iputils-ping \
+        wget \
+        unzip \
+        ansible
+RUN wget https://releases.hashicorp.com/terraform/0.12.2/terraform_0.12.2_linux_amd64.zip
+RUN unzip ./terraform_0.12.2_linux_amd64.zip
+RUN cp -r terraform /usr/local/bin/
 
-ENV DEBIAN_FRONTEND noninteractive
-
-# Get the basic stuff
-RUN apt-get update && \
-    apt-get -y upgrade && \
-    apt-get install -y \
-    sudo \
-    ansible \
-    git
-
-# Create ubuntu user with sudo privileges
-RUN useradd -ms /bin/bash ubuntu && \
-    usermod -aG sudo ubuntu
-# New added for disable sudo password
-RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-RUN echo "ALL ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-
-# Set as default user
-USER ubuntu
-WORKDIR /home/ubuntu
-
-ENV DEBIAN_FRONTEND teletype
-
-CMD ["/bin/bash"]
+CMD ["/bin/bash","-c","tail -f /dev/null"]
